@@ -16,12 +16,12 @@ In a terminal window...
 
 2. Install `http-server` globally:
 ```bash
-npm install -g http-server
+$ npm install -g http-server
 ```
 3. Go to the `igdb-js-proxy` directory
 4. Start `http-server` with proxy:
 ```bash
-http-server -o -s -a localhost --port 8080 --proxy https://api-v3.igdb.com
+$ http-server -o -s -a localhost --port 8080 --proxy https://api-v3.igdb.com
 ```
 This should open a browser window and you're ready to start making your queries.
 
