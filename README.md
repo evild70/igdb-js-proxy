@@ -32,3 +32,6 @@ This should open a browser window and you're ready to start making your queries.
 * [IGDB.com](IGDB.com)
 * [axios](https://github.com/axios/axios)
 
+---
+### Related
+[vue-igdb-api-v3](https://github.com/evild70/vue-igdb-api-v3)
