@@ -14,7 +14,14 @@
 <body>
     <section class="section">
         <div class="container">
-            <h1 class="title is-4">IGDB API v3 Query Testing</h1>
+            <div class="columns is-vcentered">
+                <div class="column">
+                    <h1 class="title is-4">IGDB API v3 Query Testing</h1>
+                </div>
+                <div class="column is-one-third">
+                    <label class="label is-small">API key: </label><input id="api-key" type="text" class="input is-small is-rounded" placeholder="Enter IGDB API v3 key">
+                </div>
+            </div>
             <div class="columns">
                 <div class="column is-narrow">
                     <div class="field">
@@ -22,13 +29,40 @@
                             <label class="label">Endpoint</label>
                         </div>
                         <div class="field-body">
-                            <div class="field has-addons">
-                                <p class="control">
-                                    <a class="button is-static">/</a>
-                                </p>
-                                <p class="control is-expanded">
-                                    <input class="input" type="text" id="endpoint" placeholder="games">
-                                </p>
+                            <div class="dropdown" id="endpoint-dropdown">
+                                <div class="dropdown-trigger">
+                                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                                        <span id="dropdown-choice">Game</span>
+                                        <span class="icon is-small">
+                                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                    <div class="dropdown-content">
+                                        <a href="#" class="dropdown-item is-active" data-value="games">Game</a>
+                                        <a href="#" class="dropdown-item" data-value="release_dates">Release Date</a>
+                                        <a href="#" class="dropdown-item" data-value="companies">Company</a>
+                                        <a href="#" class="dropdown-item" data-value="platforms">Platform</a>
+                                        <hr class="dropdown-divider">
+                                        <a href="#" class="dropdown-item" data-value="achievements">Acheivement</a>
+                                        <a href="#" class="dropdown-item" data-value="achievement_icons">Achievement Icon</a>
+                                        <a href="#" class="dropdown-item" data-value="age_ratings">Age Rating</a>
+                                        <a href="#" class="dropdown-item" data-value="age_rating_content_descriptions">Age Rating Content Description</a>
+                                        <a href="#" class="dropdown-item" data-value="alternative_names">Alternative Name</a>
+                                        <a href="#" class="dropdown-item" data-value="artworks">Artwork</a>
+                                        <a href="#" class="dropdown-item" data-value="characters">Character</a>
+                                        <a href="#" class="dropdown-item" data-value="character_mug_shots">Character Mug Shot</a>
+                                        <a href="#" class="dropdown-item" data-value="collections">Collection</a>
+                                        <a href="#" class="dropdown-item" data-value="companies">Company</a>
+                                        <a href="#" class="dropdown-item" data-value="company_logos">Company Logo</a>
+                                        <a href="#" class="dropdown-item" data-value="company_websites">Company Website</a>
+                                        <a href="#" class="dropdown-item" data-value="covers">Cover</a>
+                                        <a href="#" class="dropdown-item" data-value="external_games">External Game</a>
+                                        <a href="#" class="dropdown-item" data-value="feeds">Feed</a>
+                                        <a href="#" class="dropdown-item" data-value="franchises">Franchise</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
