@@ -2,6 +2,7 @@
 
 Test queries to **IGDB API v3** with JavaScript, axios, and a proxy.
 
+![alt text](https://github.com/evild70/igdb-js-proxy/raw/master/screenshot.png "Screenshot")
 ---
 
 ### Requirements
