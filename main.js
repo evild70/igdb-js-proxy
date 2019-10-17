@@ -1,5 +1,21 @@
+/* global axios */
+
+/**
+ * page layout javascript
+ */
+const dropdown = document.getElementById('endpoint-dropdown');
+const dropdownChoice = document.getElementById('dropdown-choice');
+const items = document.querySelectorAll('.dropdown-item');
+const queryField = document.getElementById('query-field');
+const queryBtn = document.getElementById('query-btn');
+
+// populate api key if cookied
 let api_key = localStorage.getItem('igdb-api-key') || '';
 document.getElementById('api-key').value = api_key;
+
+// populate queryField with last query
+const query_value = localStorage.getItem('igdb-api-query') || '';
+queryField.value = query_value;
 
 // defaults
 let endpoint = 'games';
@@ -17,47 +33,40 @@ function queryAPI() {
         method: 'POST',
         url: `http://localhost:8080/${endpoint}`,
         headers: {
-            'Accept': 'application/json',
+            "Accept": 'application/json',
             'user-key': api_key,
         },
         timeout: 5000,
-        data: query
-    })
-    .then((response) => {
-        console.log('Success ::', response.data);
-        queryResults.innerHTML = JSON.stringify(response.data, undefined, 4);
-    })
-    .catch((err) => {
-        console.log('Error ::', err.response)
-        queryResults.innerHTML = `${err.response.data[0].title} => ${err.response.data[0].cause} (Status: ${err.response.data[0].status})`;
-    })
-    .then(() => {
-        // after any success or error
-        queryBtn.classList.remove('is-loading');
-    });
+        data: query,
+    }).
+        then((response) => {
+            console.log('Success ::', response.data);
+            queryResults.innerHTML = JSON.stringify(response.data, 'undefined', 4);
+        }).
+        catch((err) => {
+            console.log('Error ::', err.response);
+            queryResults.innerHTML = `${err.response.data[0].title} => ${err.response.data[0].cause} (Status: ${err.response.data[0].status})`;
+        }).
+        then(() => {
+            // after any success or error
+            queryBtn.classList.remove('is-loading');
+        });
 }
 
-
-/**
- * page layout javascript
- */
-const dropdown = document.getElementById('endpoint-dropdown');
-const dropdownChoice = document.getElementById('dropdown-choice');
-const items = document.querySelectorAll('.dropdown-item');
-const queryField = document.getElementById('query-field');
-const queryBtn = document.getElementById('query-btn');
-
 function removeIsActive() {
-    items.forEach(function(item) {
+    items.forEach(function (item) {
         item.classList.remove('is-active');
     });
 }
 
 /**
  * Save API key to localStorage so it doesn't have to be entered everytime
+ * @param {string} value The value
  */
 function keyManagment(value) {
-    if (localStorage.getItem('igdb-api-key') === value) { return; }
+    if (localStorage.getItem('igdb-api-key') === value) {
+        return;
+    }
 
     localStorage.setItem('igdb-api-key', value);
     document.getElementById('api-key').value = value;
@@ -65,8 +74,8 @@ function keyManagment(value) {
 }
 
 // add event listener to all dropdown-items
-items.forEach(function(item) {
-    item.addEventListener('click', function(event) {
+items.forEach(function (item) {
+    item.addEventListener('click', function (event) {
         event.preventDefault();
         removeIsActive();
         this.classList.add('is-active');
@@ -76,22 +85,32 @@ items.forEach(function(item) {
     });
 });
 
-dropdown.addEventListener('click', function(event) {
+dropdown.addEventListener('click', function (event) {
     event.stopPropagation();
     this.classList.toggle('is-active');
 });
 
-queryBtn.addEventListener('click', function(event) {
+function handleQueryBtnClick(event) {
     event.preventDefault();
     keyManagment(document.getElementById('api-key').value);
     this.classList.add('is-loading');
-    query = queryField.value !== '' ? queryField.value : query;
+    query = queryField.value ? queryField.value : query;
+
+    localStorage.setItem('igdb-api-query', query);
 
     queryAPI();
-});
+}
+
+queryBtn.addEventListener('click', handleQueryBtnClick);
+
+// window.addEventListener('keydown', (event) => {
+//     if (event.key === 'Enter') {
+//         handleQueryBtnClick();
+//     }
+// });
 
 // close dropdown when clicked anywhere on page
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
     if (event.target !== dropdown) {
         dropdown.classList.remove('is-active');
     }
